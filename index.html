@@ -1,0 +1,63 @@
+<html>
+<head>
+	<title>Javascript Demo</title>
+	<style>
+		body {
+			background-color:black;
+			font-family: monospace;
+			color:white;
+			font-size:50px;
+			text-align: center;
+		}
+
+		#changing_text{
+			color: blue;
+		}
+	</style>
+</head>
+<body>
+
+	Coding is <div id="changing_text"></div>
+
+	<script>
+
+		var words = ["fun", "exciting", "about not giving up", "being helpful"],
+			// var 'EL' is div 'changing_text'
+			el = document.getElementById('changing_text'),
+			word_counter = 0,
+			character_counter = 0;
+
+		function updateText()
+		{	
+			// var 'character' is from 'words' array, at index 'word_counter' at inner index 'character_counter'
+			var character = words[word_counter][character_counter++];
+
+			// if the character is empty space, make that a non-breaking space
+			if(character === ' '){
+				character = "&nbsp;"
+			}
+
+			// the inner HTML of the changing div will display all characters added one by one
+			el.innerHTML = el.innerHTML + character;
+
+			// When you are at last character of word...
+			if(character_counter == words[word_counter].length + 1) // ** ADDED '+ 1' to get last letter
+			{
+				word_counter++; 	//start next index for 'words' array
+				character_counter = 0;	//start over with the first character of the word
+				el.innerHTML = '';  //set the html to be blank
+
+				//if we're displaying the last word, go back to the first word
+				if(word_counter == words.length)
+					word_counter = 0;
+			}
+		}
+
+		setInterval(updateText, 500);
+		// Runs updateText function at speed 500
+
+	</script>
+
+</body>
+
+</html>
